@@ -38,13 +38,13 @@ class Field {
     }
     check() {
       if (this.currPosition === hat) {
-        console.log("You found hat");
+        console.log("You found hat. Congratulations! You won!");
         this.continueGame = false;
       } else if (this.currPosition === hole) {
-        console.log("You felt in a hole");
+        console.log("You felt in a hole. You've lost. Game over.");
         this.continueGame = false;
       } else if (this.currPosition === undefined) {
-        console.log("You went outside the field");
+        console.log("You went outside the field. Game over.");
         this.continueGame = false;
       } else if (this.currPosition === fieldCharacter) {
         this.continueGame = true;
@@ -52,14 +52,10 @@ class Field {
     }
     loop() {
       while (this.continueGame === true) {
-        console.log(this.x);
-        console.log(this.y);
         this.print();
         this.updatePosition();
-        console.log(this.x);
-        console.log(this.y);
         this.check();
-        this.currPosition = pathCharacter;
+        this.field[this.x][this.y] = pathCharacter;
       }
     }
   };

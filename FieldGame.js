@@ -8,10 +8,10 @@ const pathCharacter = '*';
 class Field {
     constructor(field, x, y) {
       this.field = field;
-      this.currPosition = this.field[x][y];
       this.continueGame = true;
       this.x = x;
       this.y = y;
+      this.currPosition = this.field[x][y];
     }
     print() {
       for (let subArr of this.field) {
@@ -57,8 +57,12 @@ class Field {
     }
     loop() {
       while (this.continueGame === true) {
+        console.log(this.x);
+        console.log(this.y);
         this.print();
         this.updatePosition();
+        console.log(this.x);
+        console.log(this.y);
         this.check();
       }
     }

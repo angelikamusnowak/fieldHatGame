@@ -10,6 +10,8 @@ class Field {
       this.field = field;
       this.currPosition = this.field[0][0];
       this.continueGame = true;
+      this.x = 0;
+      this.y = 0;
     }
     print() {
       for (let subArr of this.field) {
@@ -19,17 +21,23 @@ class Field {
     updatePosition() {
       let way = prompt('Which way to go? Please enter "r" for right, "l" for left, "d" for down and "u" for up. ');
       way = way.toUpperCase();
-      this.currPosition = pathCharacter;
+      let field = this.field;
       if (way === 'R') {
-        this.field.splice(1, 1, '*');
-       } else if (way === 'L') {
-        this.currPosition = this.field[x][y-1];
-       } else if (way === 'U') {
-        this.currPosition = this.field[x+1][y];
-       } else if (way === 'D') {
-        this.currPosition = this.field[x-1][y];
-       } else {console.log("Please enter valid character")};
-      this.currPosition = pathCharacter;
+        y += 1;
+        field[x][y] = position;
+      } else if (way === 'L') {
+        y -= 1;
+        field[x][y] = position;
+      } else if (way === 'U') {
+        x -= 1;
+        field[x][y] = position;
+      } else if (way === 'D') {
+        x += 1;
+        field[x][y] = position;
+      } else {console.log("Please enter valid character")};
+      for (let subArr of field) {
+        console.log(JSON.stringify(subArr.join('')));
+      };
     }
     check() {
       if (this.currPosition === hat) {
@@ -46,6 +54,10 @@ class Field {
       }
     }
     loop() {
+      let x = this.x;
+      let y = this.y;
+      let position = '*';
+      this.field[x][y] = position;
       while (this.continueGame === true) {
         this.print();
         this.updatePosition();
@@ -58,7 +70,7 @@ const myField = new Field([
     ['*', '░', 'O'],
     ['░', 'O', '░'],
     ['░', '^', '░'],
-  ], 0, 0);
+  ]);
 
 myField.loop();
 
@@ -77,6 +89,6 @@ myField.loop();
     field[x-1][y] = 'A';
    } else {console.log("Please enter valid character")};
   console.log(JSON.stringify(field));
-};*/
+};
 
-updatePosition(myField, 'R');
+updatePosition(myField, 'R');*/

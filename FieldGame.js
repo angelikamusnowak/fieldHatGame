@@ -11,7 +11,7 @@ class Field {
       this.continueGame = true;
       this.x = x;
       this.y = y;
-      this.currPosition = this.field[x][y];
+      this.currPosition = this.field[this.x][this.y];
     }
     print() {
       for (let subArr of this.field) {
@@ -21,20 +21,16 @@ class Field {
     updatePosition() {
       let way = prompt('Which way to go? Please enter "r" for right, "l" for left, "d" for down and "u" for up. ');
       way = way.toUpperCase();
-      this.currPosition = this.field[this.x][this.y];
       if (way === 'R') {
         this.y += 1;
-        this.currPosition = this.field[this.x][this.y];
       } else if (way === 'L') {
         this.y -= 1;
-        this.currPosition = this.field[this.x][this.y];
       } else if (way === 'U') {
         this.x -= 1;
-        this.currPosition = this.field[this.x][this.y];
       } else if (way === 'D') {
         this.x += 1;
-        this.currPosition = this.field[this.x][this.y];
       } else {console.log("Please enter valid character")};
+      this.currPosition = this.field[this.x][this.y];
     }
     check() {
       if (this.currPosition === hat) {
@@ -48,6 +44,7 @@ class Field {
         this.continueGame = false;
       } else if (this.currPosition === fieldCharacter) {
         this.continueGame = true;
+      this.field[this.x][this.y] = pathCharacter;
       }
     }
     loop() {
@@ -55,7 +52,6 @@ class Field {
         this.print();
         this.updatePosition();
         this.check();
-        this.field[this.x][this.y] = pathCharacter;
       }
     }
   };

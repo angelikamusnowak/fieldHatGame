@@ -6,12 +6,12 @@ const fieldCharacter = '░';
 const pathCharacter = '*';
 
 class Field {
-    constructor(field) {
+    constructor(field, x, y) {
       this.field = field;
-      this.currPosition = this.field[0][0];
+      this.currPosition = this.field[x][y];
       this.continueGame = true;
-      this.x = 0;
-      this.y = 0;
+      this.x = x;
+      this.y = y;
     }
     print() {
       for (let subArr of this.field) {
@@ -21,23 +21,25 @@ class Field {
     updatePosition() {
       let way = prompt('Which way to go? Please enter "r" for right, "l" for left, "d" for down and "u" for up. ');
       way = way.toUpperCase();
-      let field = this.field;
+      this.currPosition = this.field[this.x][this.y];
+      this.currPosition = pathCharacter;
       if (way === 'R') {
-        y += 1;
-        field[x][y] = position;
+        this.y += 1;
+        this.currPosition = this.field[this.x][this.y];
+        this.currPosition = pathCharacter;
       } else if (way === 'L') {
-        y -= 1;
-        field[x][y] = position;
+        this.y -= 1;
+        this.currPosition = this.field[this.x][this.y];
+        this.currPosition = pathCharacter;
       } else if (way === 'U') {
-        x -= 1;
-        field[x][y] = position;
+        this.x -= 1;
+        this.currPosition = this.field[this.x][this.y];
+        this.currPosition = pathCharacter;
       } else if (way === 'D') {
-        x += 1;
-        field[x][y] = position;
+        this.x += 1;
+        this.currPosition = this.field[this.x][this.y];
+        this.currPosition = pathCharacter;
       } else {console.log("Please enter valid character")};
-      for (let subArr of field) {
-        console.log(JSON.stringify(subArr.join('')));
-      };
     }
     check() {
       if (this.currPosition === hat) {
@@ -54,10 +56,6 @@ class Field {
       }
     }
     loop() {
-      let x = this.x;
-      let y = this.y;
-      let position = '*';
-      this.field[x][y] = position;
       while (this.continueGame === true) {
         this.print();
         this.updatePosition();
@@ -70,7 +68,7 @@ const myField = new Field([
     ['*', '░', 'O'],
     ['░', 'O', '░'],
     ['░', '^', '░'],
-  ]);
+  ], 0, 0);
 
 myField.loop();
 

@@ -23,14 +23,21 @@ class Field {
       way = way.toUpperCase();
       if (way === 'R') {
         this.y += 1;
+        this.currPosition = this.field[this.x][this.y];
       } else if (way === 'L') {
         this.y -= 1;
-      } else if (way === 'U') {
+        this.currPosition = this.field[this.x][this.y];
+      } else if ((way === 'U') & (this.x > 0)) {
         this.x -= 1;
-      } else if (way === 'D') {
+        this.currPosition = this.field[this.x][this.y];
+      } else if ((way === 'D') & (this.x < (this.field.length -1))) {
         this.x += 1;
-      } else {console.log("Please enter valid character")};
-      this.currPosition = this.field[this.x][this.y];
+        this.currPosition = this.field[this.x][this.y];
+      } else if ((way === 'U') & (this.x <= 0)){
+        this.currPosition = undefined;
+      } else if ((way === 'D') & (this.x >= (this.field.length -1))){
+        this.currPosition = undefined;
+      } else {console.log("Please enter a valid character.")};
     }
     check() {
       if (this.currPosition === hat) {
@@ -63,22 +70,3 @@ const myField = new Field([
   ], 0, 0);
 
 myField.loop();
-
-/*function updatePosition(field, way) {
-  let x = 0;
-  let y = 0;
-  let position = '*';
-  field[x][y] = position;
-  if (way === 'R') {
-    field[x][y+1] = position;
-   } else if (way === 'L') {
-    field[x][y-1] = 'A';
-   } else if (way === 'U') {
-    field[x+1][y] = 'A';
-   } else if (way === 'D') {
-    field[x-1][y] = 'A';
-   } else {console.log("Please enter valid character")};
-  console.log(JSON.stringify(field));
-};
-
-updatePosition(myField, 'R');*/

@@ -22,23 +22,18 @@ class Field {
       let way = prompt('Which way to go? Please enter "r" for right, "l" for left, "d" for down and "u" for up. ');
       way = way.toUpperCase();
       this.currPosition = this.field[this.x][this.y];
-      this.currPosition = pathCharacter;
       if (way === 'R') {
         this.y += 1;
         this.currPosition = this.field[this.x][this.y];
-        this.currPosition = pathCharacter;
       } else if (way === 'L') {
         this.y -= 1;
         this.currPosition = this.field[this.x][this.y];
-        this.currPosition = pathCharacter;
       } else if (way === 'U') {
         this.x -= 1;
         this.currPosition = this.field[this.x][this.y];
-        this.currPosition = pathCharacter;
       } else if (way === 'D') {
         this.x += 1;
         this.currPosition = this.field[this.x][this.y];
-        this.currPosition = pathCharacter;
       } else {console.log("Please enter valid character")};
     }
     check() {
@@ -64,6 +59,7 @@ class Field {
         console.log(this.x);
         console.log(this.y);
         this.check();
+        this.currPosition = pathCharacter;
       }
     }
   };

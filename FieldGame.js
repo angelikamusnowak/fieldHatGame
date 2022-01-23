@@ -62,6 +62,19 @@ class Field {
         this.check();
       }
     }
+    static randomField(height, width, percentage) {
+      let arr = Array(width).fill(fieldCharacter);
+      let twoDimArr = Array(height).fill(arr);
+      let ranHIndex = Math.floor(Math.random()*height);
+      let ranWIndex = Math.floor(Math.random()*width);
+      let places = width*height;
+      let holePlaces = Math.floor(percentage*places);
+      for (let i=0; i<holePlaces; i++) {
+        twoDimArr[ranHIndex][ranWIndex] = hole;
+      };
+      twoDimArr[ranHIndex][ranWIndex] = hat;
+      return twoDimArr;
+    }
   };
 
 const myField = new Field([

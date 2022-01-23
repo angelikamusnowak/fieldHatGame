@@ -84,7 +84,7 @@ const myField = new Field([
     ['░', '^', 'O','░', 'O'],
   ], 1, 0);
 
-let newField = Field.generateField(8,10,30);
+/*let newField = Field.generateField(8,10,30);
 let secondField = Field.generateField(40,30,10);
 let thirdField = Field.generateField(50,80,70);
 for (let subArr of newField) {
@@ -97,5 +97,8 @@ for (let subArr of secondField) {
 console.log('-------')
 for (let subArr of thirdField) {
   console.log(subArr.join(''));
-}
-//myField.loop();
+}*/
+
+let piotrkaField = Field.generateField(30,30,50);
+const piotrkaGra = new Field(piotrkaField, 10, 10);
+piotrkaGra.loop();

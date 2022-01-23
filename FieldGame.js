@@ -62,17 +62,16 @@ class Field {
         this.check();
       }
     }
-    static randomField(height, width, percentage) {
-      let arr = Array(width).fill(fieldCharacter);
-      let twoDimArr = Array(height).fill(arr);
-      let ranHIndex = Math.floor(Math.random()*height);
-      let ranWIndex = Math.floor(Math.random()*width);
+    static generateField(height, width, percentage) {
+      let twoDimArr = Array(height).fill().map(() => Array(width).fill(fieldCharacter));
       let places = width*height;
-      let holePlaces = Math.floor(percentage*places);
-      for (let i=0; i<holePlaces; i++) {
-        twoDimArr[ranHIndex][ranWIndex] = hole;
+      let holePlaces = Math.floor(percentage*places/100);
+      let i = 0;
+      while (i<holePlaces) {
+        twoDimArr[Math.floor(Math.random()*height)][Math.floor(Math.random()*width)] = hole;
+        i++;
       };
-      twoDimArr[ranHIndex][ranWIndex] = hat;
+      twoDimArr[Math.floor(Math.random()*height)][Math.floor(Math.random()*width)] = hat;
       return twoDimArr;
     }
   };
@@ -85,4 +84,18 @@ const myField = new Field([
     ['░', '^', 'O','░', 'O'],
   ], 1, 0);
 
-myField.loop();
+let newField = Field.generateField(8,10,30);
+let secondField = Field.generateField(40,30,10);
+let thirdField = Field.generateField(50,80,70);
+for (let subArr of newField) {
+  console.log(subArr.join(''));
+};
+console.log('-------')
+for (let subArr of secondField) {
+  console.log(subArr.join(''));
+};
+console.log('-------')
+for (let subArr of thirdField) {
+  console.log(subArr.join(''));
+}
+//myField.loop();

@@ -12,6 +12,7 @@ class Field {
       this.x = x;
       this.y = y;
       this.currPosition = this.field[this.x][this.y];
+      this.field[this.x][this.y] = pathCharacter;
     }
     print() {
       for (let subArr of this.field) {
@@ -64,11 +65,11 @@ class Field {
   };
 
 const myField = new Field([
-    ['*', '░', '░','░', 'O'],
+    ['░', '░', '░','░', 'O'],
     ['░', 'O', 'O', '░', '░'],
     ['O', 'O', '░', 'O', '░'],
     ['░', '░', '░', '░', '░'],
     ['░', '^', 'O','░', 'O'],
-  ], 0, 0);
+  ], 1, 0);
 
 myField.loop();

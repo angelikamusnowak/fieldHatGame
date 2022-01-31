@@ -102,3 +102,40 @@ for (let subArr of thirdField) {
 let piotrkaField = Field.generateField(30,30,50);
 const piotrkaGra = new Field(piotrkaField, 10, 10);
 piotrkaGra.loop();
+
+function solvable(inputField, u, w) {
+  let field = inputField;
+  field[u][w] = fieldCharacter;
+  let blankIndexes = [];
+  for (let x=0; x<field.length; x++) {
+    for (let y=0; y<field[0].length; y++) {
+      if (field[x][y] === fieldCharacter) {
+        blankIndexes.push([x,y]);
+      }
+    }
+  };
+  function checkIfBlank(a, b) {
+    if(blankIndexes.findIndex(arr => {return (arr === [a, b])}) >= 0) {
+      return true;
+    } else {return false;}
+  };
+  function goToHat(x, y) {
+    if ((field[x-1, y] === hat) || (field[x+1, y] === hat) || (field[x, y-1] === hat) || (field[x, y+1] === hat) || (field[x, y] === hat)) {
+      return true;
+    };
+    if (checkIfBlank(x-1, y)) {
+      goToHat(x-1, y);
+    };
+    if (checkIfBlank(x+1, y)) {
+      goToHat(x+1, y);
+    };
+    if (checkIfBlank(x, y-1)) {
+      goToHat(x, y-1);
+    };
+    if (checkIfBlank(x, y+1)) {
+      goToHat(x, y+1);
+    };
+    return false;
+  };
+  return goToHat(u, w);
+}

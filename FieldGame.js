@@ -106,6 +106,7 @@ const piotrkaGra = new Field(piotrkaField, 10, 10);
 function solvable(inputField, u, w) {
   let field = inputField;
   field[u][w] = fieldCharacter;
+  console.log(field[u][w]);
   let blankIndexes = [];
   for (let x=0; x<field.length; x++) {
     for (let y=0; y<field[0].length; y++) {
@@ -114,13 +115,43 @@ function solvable(inputField, u, w) {
       }
     }
   };
+  function searchForArray(haystack, needle){
+    var i, j, current;
+    for(i = 0; i < haystack.length; ++i){
+      if(needle.length === haystack[i].length){
+        current = haystack[i];
+        for(j = 0; j < needle.length && needle[j] === current[j]; ++j);
+        if(j === needle.length)
+          return i;
+      }
+    }
+    return -1;
+  };
   function checkIfBlank(a, b) {
-    if(blankIndexes.findIndex(arr => {return (arr === [a, b])}) >= 0) {
+    if((searchForArray(blankIndexes, [a, b]) >= 0)) {
+      return true;
+    } else {return false;}
+  };
+  console.log(checkIfBlank(0,3));
+  console.log(checkIfBlank(0,4));
+  console.log(checkIfBlank(3,1));
+  console.log(checkIfBlank(3,2));
+  let fieldIndexes = [];
+  for (let x=0; x<field.length; x++) {
+    for (let y=0; y<field[0].length; y++) {
+      if (field[x][y] === fieldCharacter || field[x][y] === hat || field[x][y] === hole  || field[x][y] === pathCharacter ) {
+        fieldIndexes.push([x,y]);
+      }
+    }
+  };
+  function checkIfFieldIndex(a, b) {
+    if(searchForArray(fieldIndexes, [a, b]) >= 0) {
       return true;
     } else {return false;}
   };
   function goToHat(x, y) {
-    if (((x>0) & (field[x-1][y] === hat)) || ((x<(field.length-1) & (field[x+1][y] === hat))) || ((y>0) & (field[x][y-1] === hat)) || ((y<(field[0].length-1) & (field[x][y+1] === hat))) || (field[x][y] === hat)) {
+    if (checkIfFieldIndex(x ,y)) {
+    if (field[x-1][y] === hat || field[x+1][y] === hat || field[x][y-1] === hat|| field[x][y+1] === hat || field[x][y] === hat) {
       console.log('hat');
       return true;
     };
@@ -139,16 +170,18 @@ function solvable(inputField, u, w) {
     if (checkIfBlank(x, y+1)) {
       console.log('cztery');
       goToHat(x, y+1);
-    } else 
-    {console.log('o nie');}
+    }} else {
+      console.log('o nie');
+      return false;
+    }
   };
   return goToHat(u, w);
 };
 
 console.log(solvable(piotrkaField, 10, 10));
 console.log(solvable([
-  ['^', '^', '░','░', 'O'],
-  ['░', 'O', 'O', '░', '░'],
+  ['^', '^', '^','░', 'O'],
+  ['^', 'O', 'O', '░', '░'],
   ['O', 'O', '░', 'O', '░'],
   ['░', '░', '░', '░', '░'],
   ['░', '^', 'O','░', 'O'],

@@ -84,10 +84,10 @@ const myField = new Field([
     ['░', '^', 'O','░', 'O'],
   ], 1, 0);
 
-/*let newField = Field.generateField(8,10,30);
+let newField = Field.generateField(8,10,30);
 let secondField = Field.generateField(40,30,10);
 let thirdField = Field.generateField(50,80,70);
-for (let subArr of newField) {
+/*for (let subArr of newField) {
   console.log(subArr.join(''));
 };
 console.log('-------')
@@ -101,7 +101,7 @@ for (let subArr of thirdField) {
 
 let piotrkaField = Field.generateField(30,30,50);
 const piotrkaGra = new Field(piotrkaField, 10, 10);
-piotrkaGra.loop();
+//piotrkaGra.loop();
 
 function solvable(inputField, u, w) {
   let field = inputField;
@@ -120,22 +120,40 @@ function solvable(inputField, u, w) {
     } else {return false;}
   };
   function goToHat(x, y) {
-    if ((field[x-1, y] === hat) || (field[x+1, y] === hat) || (field[x, y-1] === hat) || (field[x, y+1] === hat) || (field[x, y] === hat)) {
+    if (((x>0) & (field[x-1][y] === hat)) || ((x<(field.length-1) & (field[x+1][y] === hat))) || ((y>0) & (field[x][y-1] === hat)) || ((y<(field[0].length-1) & (field[x][y+1] === hat))) || (field[x][y] === hat)) {
+      console.log('hat');
       return true;
     };
     if (checkIfBlank(x-1, y)) {
+      console.log('jeden');
       goToHat(x-1, y);
     };
     if (checkIfBlank(x+1, y)) {
+      console.log('dwa');
       goToHat(x+1, y);
     };
     if (checkIfBlank(x, y-1)) {
+      console.log('trzy');
       goToHat(x, y-1);
     };
     if (checkIfBlank(x, y+1)) {
+      console.log('cztery');
       goToHat(x, y+1);
-    };
-    return false;
+    } else 
+    {console.log('o nie');}
   };
   return goToHat(u, w);
-}
+};
+
+console.log(solvable(piotrkaField, 10, 10));
+console.log(solvable([
+  ['^', '^', '░','░', 'O'],
+  ['░', 'O', 'O', '░', '░'],
+  ['O', 'O', '░', 'O', '░'],
+  ['░', '░', '░', '░', '░'],
+  ['░', '^', 'O','░', 'O'],
+]
+, 0, 0));
+//console.log(solvable(newField, 0, 0));
+//console.log(solvable(secondField, 0, 0));
+console.log(solvable(thirdField, 0, 0));

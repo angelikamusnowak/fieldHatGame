@@ -149,44 +149,85 @@ function solvable(inputField, u, w) {
       return true;
     } else {return false;}
   };
+  console.log(checkIfFieldIndex(10,8));
+  console.log(checkIfFieldIndex(4,4));
+  console.log(checkIfFieldIndex(0,0));
+  const wentThere = [];
   function goToHat(x, y) {
-    if (checkIfFieldIndex(x ,y)) {
-    if (field[x-1][y] === hat || field[x+1][y] === hat || field[x][y-1] === hat|| field[x][y+1] === hat || field[x][y] === hat) {
-      console.log('hat');
-      return true;
+    console.log(x, y)
+    if ((checkIfFieldIndex(x ,y) === true)) {
+      console.log('przed czapka');
+    if (checkIfFieldIndex(x-1 ,y)) {
+      if (field[x-1][y] === hat) {
+        console.log('hat');
+        return true;
+      }
     };
-    if (checkIfBlank(x-1, y)) {
-      console.log('jeden');
-      goToHat(x-1, y);
+    if (checkIfFieldIndex(x+1 ,y)) {
+      if (field[x+1][y] === hat) {
+        console.log('hat');
+        return true;
+      }
     };
-    if (checkIfBlank(x+1, y)) {
-      console.log('dwa');
-      goToHat(x+1, y);
+    if (checkIfFieldIndex(x ,y-1)) {
+      if (field[x][y-1] === hat) {
+        console.log('hat');
+        return true;
+      }
     };
-    if (checkIfBlank(x, y-1)) {
-      console.log('trzy');
-      goToHat(x, y-1);
+    if (checkIfFieldIndex(x ,y+1)) {
+      if (field[x][y] === hat) {
+        console.log('hat');
+        return true;
+      }
     };
-    if (checkIfBlank(x, y+1)) {
-      console.log('cztery');
-      goToHat(x, y+1);
-    }} else {
-      console.log('o nie');
+    if (field[x+1][y] === hat) {
+        console.log('hat');
+        return true;
+      }
+    };
+    if ((searchForArray(wentThere, [x, y])) < 0) {
+      if (checkIfBlank(x-1, y)) {
+        console.log('jeden');
+        goToHat(x-1, y);
+        wentThere.push([x-1,y]);
+      };
+      if (checkIfBlank(x+1, y)) {
+        console.log('dwa');
+        goToHat(x+1, y);
+        wentThere.push([x+1,y]);
+      };
+      if (checkIfBlank(x, y-1)) {
+        console.log('trzy');
+        goToHat(x, y-1);
+        wentThere.push([x,y-1]);
+      };
+      if (checkIfBlank(x, y+1)) {
+        console.log('cztery');
+        goToHat(x, y+1);
+        wentThere.push([x,y+1]);
+      } else {
+        console.log('o nie');
+        return false;
+      };
+    } else {
+      console.log('to tutaj');
       return false;
     }
   };
+  console.log('przedostatni');
   return goToHat(u, w);
 };
 
-console.log(solvable(piotrkaField, 10, 10));
-console.log(solvable([
-  ['^', '^', '^','░', 'O'],
-  ['^', 'O', 'O', '░', '░'],
+//console.log(solvable(piotrkaField, 10, 10));
+const greenField = [
+  ['░', '░', '^','░', 'O'],
+  ['░', 'O', 'O', '░', '░'],
   ['O', 'O', '░', 'O', '░'],
   ['░', '░', '░', '░', '░'],
-  ['░', '^', 'O','░', 'O'],
-]
-, 0, 0));
+  ['░', '^', 'O','░', 'O']
+];
+console.log(solvable(greenField, 0, 0));
 //console.log(solvable(newField, 0, 0));
 //console.log(solvable(secondField, 0, 0));
-console.log(solvable(thirdField, 0, 0));
+//console.log(solvable(thirdField, 0, 0));
